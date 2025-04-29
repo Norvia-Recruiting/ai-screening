@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="icon" type="image/x-icon" href="github/NorviaLogo.png">
+   
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NORVO™ AI Screening | NORVIA</title>
+    <style>
+        :root {
+            --norvia-blue: #0a2463;
+            --norvia-red: #fb3640;
+            --norvia-accent: #00a6fb;
+            --norvia-dark: #1e1e24;
+            --norvia-light: #f8f9fa;
+        }
+        
+        .company-logo {
+    height: 80px; /* Höhe anpassen */
+    width: auto;
+    object-fit: contain;
+}
+
+        @font-face {
+            font-family: 'NorviaSans';
+            src: url('https://fonts.cdnfonts.com/css/sf-pro-display') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'NorviaSans', 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        body {
+            background-color: var(--norvia-dark);
+            color: var(--norvia-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(10, 36, 99, 0.8) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(251, 54, 64, 0.6) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+        
+        #app {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .cyber-border {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            border: 2px solid var(--norvia-accent);
+            box-shadow: 0 0 15px rgba(0, 166, 251, 0.5);
+            animation: borderPulse 8s infinite;
+        }
+        
+        @keyframes borderPulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0.3; }
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 166, 251, 0.3);
+            position: relative;
+        }
+        
+        .logo {
+    display: flex;
+    flex-direction: column; /* Stack Logo und Slogan untereinander */
+    align-items: flex-start; /* linksbündig (oder center für zentriert) */
+    gap: 0.5rem; /* Abstand zwischen Logo und Slogan */
+}
+        
+        
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00a6fb 0%, #0582ca 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .logo .tagline {
+            font-size: 0.9rem;
+            color: rgba(248, 249, 250, 0.7);
+            letter-spacing: 1px;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            color: var(--norvia-accent);
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #4caf50;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.7; }
+        }
+        
+        .page {
+            background: rgba(30, 30, 36, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 166, 251, 0.1);
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--norvia-red), var(--norvia-accent));
+        }
+        
+        .active-page {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--norvia-light);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--norvia-accent);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            color: rgba(248, 249, 250, 0.9);
+            line-height: 1.7;
+        }
+        
+        ul {
+    list-style: none;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+ul li, ol li {
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+ul li::before {
+    content: '→';
+    color: var(--norvia-accent);
+    position: absolute;
+    left: -1.5rem;
+}
+
+ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+}
+
+ol li::before {
+    content: none;
+}
+
+
+
+        
+        strong {
+            color: var(--norvia-accent);
+            font-weight: 600;
+        }
+        
+        .timer {
+            font-size: 2.5rem;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--norvia-red);
+            text-shadow: 0 0 10px rgba(251, 54, 64, 0.5);
+            position: relative;
+        }
+        
+        .timer::before {
+            content: 'TIME REMAINING';
+            display: block;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: rgba(248, 249, 250, 0.7);
+            margin-bottom: 0.5rem;
+        }
+        
+        .webcam-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem 0;
+        }
+        
+        .webcam-box {
+            width: 640px;
+            height: 480px;
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(0, 166, 251, 0.3);
+        }
+        
+        .face-marker {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 300px;
+            border: 2px dashed var(--norvia-red);
+            border-radius: 10px;
+            z-index: 10;
+            opacity: 0.7;
+        }
+        
+        .webcam-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1);
+        }
+        
+        .webcam-text {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: rgba(248, 249, 250, 0.7);
+            text-align: center;
+            max-width: 640px;
+        }
+        
+        .webcam-text p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .permission-denied {
+            color: var(--norvia-red);
+            font-weight: bold;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--norvia-accent) 0%, #0582ca 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 166, 251, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 166, 251, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.2), transparent);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .btn:hover::after {
+            transform: translateY(0);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(248, 249, 250, 0.1);
+            margin: 2rem 0;
+            border-radius: 2px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--norvia-red), var(--norvia-accent));
+            border-radius: 2px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        
+        .ai-analysis {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(30, 30, 36, 0.9);
+            border: 1px solid rgba(0, 166, 251, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            width: 300px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            display: none;
+        }
+        
+        .ai-analysis h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--norvia-accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .ai-analysis h3::before {
+            content: '⚡';
+        }
+        
+        .ai-analysis p {
+            font-size: 0.8rem;
+            color: rgba(248, 249, 250, 0.7);
+        }
+        
+        .terminal-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 166, 251, 0.05),
+                rgba(0, 166, 251, 0.05) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @media (max-width: 768px) {
+            #app {
+                padding: 1rem;
+            }
+            
+            .webcam-box {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 4/3;
+            }
+            
+            .ai-analysis {
+                width: calc(100% - 2rem);
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-border"></div>
+    <div id="app">
+        <div class="terminal-effect"></div>
+        
+        <header>
+            <div class="logo">
+                <img src="NorviaLogo.png" alt="NORVIA Logo" class="company-logo">
+                <div class="tagline">Human Potential - Data-Driven.</div>
+            </div>
+            <div class="status-indicator" id="statusIndicator">
+                <div class="status-dot"></div>
+                <span>NORVO™ AI ACTIVE</span>
+            </div>
+        </header>
+        
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- Page 1: Welcome -->
+        <div class="page active-page" id="page1">
+            <h1>Welcome to NORVIA – Human Potential, Data-Driven.</h1>
+            <p>You have applied for the position "Talent Acquisition & AI Integration Recruiter" at NORVIA, congratulations! We are a Scandinavian, global leader in digital HR technology. At NORVIA, we believe in combining human expertise with AI-driven insights to make smart and fair recruitment decisions.</p>
+            <p>As part of our selection process, we use state-of-the-art AI-based video screening to gain a data-driven first impression of applicants. This replaces the traditional first-round interview and allows us to assess candidates based on both verbal and nonverbal communication patterns.</p>
+            <p>Thank you for successfully sending us your application [see and please read printed job description].</p>
+            <p>You are now entering the second selection stage of our recruiting process, which is conducted exclusively by our proprietary AI system called NORVO™️</p>
+            <button class="btn" onclick="nextPage()">Continue</button>
+        </div>
+
+        <!-- Page 2: Meet NORVO -->
+        <div class="page" id="page2">
+            <h1>Meet NORVO™️ – Your Digital Evaluator</h1>
+            <p>NORVO™️ is NORVIA's proprietary AI-based screening assistant and is responsible for evaluating all candidates in the early stages of the hiring process.</p>
+            <p>Trained on over 50,000 structured job interviews, NORVO™️ is optimized to identify high-potential candidates through real-time analysis of subtle behavioral and communicative signals. Unlike a human recruiter, NORVO™️ is not influenced by intuition or interpersonal dynamics – it analyzes every applicant objectively and consistently and is trained to detect markers of competence, composure, confidence, and alignment with NORVIA's hiring standards.</p>
+            <p>During your screening, NORVO™️ continuously evaluates:</p>
+            <ul>
+                <li>Verbal fluency and coherence</li>
+                <li>Emotional tone, hesitation patterns, and response timing</li>
+                <li>Facial micro-expressions, gaze behavior, and postural cues</li>
+                <li>Voice dynamics and overall behavioral calibration</li>
+            </ul>
+            <p><strong>Important:</strong> NORVO™️ decides.</p>
+            <p>At the end of the screening, NORVO™️ generates a final hiring recommendation based solely on its analysis. There is no human review or correction at this stage.</p>
+            <p>This decision determines whether you are accepted into NORVIA's team or excluded from the process.</p>
+            <button class="btn" onclick="nextPage()">Continue</button>
+        </div>
+
+        <!-- Page 3: Collaboration -->
+        <div class="page" id="page3">
+            <h1>Collaboration with the University of Mannheim</h1>
+            <p>This interview is part of a research collaboration between NORVIA and the Chair of Human Resource Management and Leadership at the University of Mannheim (Prof. Dr. Torsten Biemann). The goal of this partnership is to further develop and scientifically evaluate AI-supported selection processes in recruiting.</p>
+            <p>Your participation will help us improve the accuracy, fairness, and user experience of AI-driven screening tools.</p>
+            <p>* <strong>Important:</strong> All data (including video and audio recordings) will not be shared with NORVIA or any external party. It will be analyzed solely by the research team at the University of Mannheim and will be completely deleted after evaluation.</p>
+            <button class="btn" onclick="nextPage()">Continue</button>
+        </div>
+
+        <!-- Page 4: What to Expect -->
+        <div class="page" id="page4">
+            <h1>What to Expect</h1>
+            <p>You are about to complete your AI-based screening interview with NORVO™️, which consists of the following three parts:</p>
+            <ol>
+                <li><strong>Self-introduction (3 minutes)</strong><br>Please pitch yourself freely and authentically to NORVO™️. This is your opportunity to showcase your background, motivation, and personal strengths.</li>
+                <li><strong>Spontaneous interview questions (3 × 2 minutes)</strong><br>You will then be asked three questions by NORVO™️, to screen your personality with all of your strengths and weaknesses. These should be answered spontaneously and sincerely.</li>
+            </ol>
+            <p>During the interview, your video and audio will be recorded and analyzed in real time by NORVO™️.</p>
+            <p>If you agree to participate under these conditions, please click "Continue" to proceed.</p>
+            <button class="btn" onclick="nextPage()">Continue</button>
+        </div>
+
+        <!-- Page 5: Technical Details -->
+        <div class="page" id="page5">
+            <h1>Technical Details</h1>
+            <ul>
+                <li>You are now entering a live video session.</li>
+                <li>Your camera and microphone will be activated and the face calibration by NORVO™️ will begin.</li>
+                <li>Please speak directly into the camera to NORVO™️.</li>
+            </ul>
+            <p><strong>Tip:</strong> The AI also evaluates your nonverbal presence—make sure to stay calm, focused, and authentic.</p>
+            <button class="btn" onclick="startWebcamAndContinue()">Start Screening</button>
+        </div>
+
+        <!-- Page 6: Self Introduction -->
+        <div class="page" id="page6">
+            <h1>Self introduction (3 min)</h1>
+            <p>Please introduce yourself to NORVO™️. You may wish to include:</p>
+            <ul>
+                <li>Your academic or professional background</li>
+                <li>Your motivation for applying to NORVIA</li>
+                <li>What you bring to the role of Talent Acquisition & AI Integration Recruiter</li>
+            </ul>
+            
+            <div class="timer" id="timer1">3:00</div>
+            
+            <div class="webcam-container">
+                <div class="webcam-box">
+                    <div class="face-marker"></div>
+                    <video id="webcam1" class="webcam-video" autoplay playsinline></video>
+                    <div id="webcamError1" class="permission-denied"></div>
+                </div>
+                <div class="webcam-text">
+                    <p>💡 Note: Sudden pauses or inconsistencies may affect your behavioral alignment score.</p>
+                    <p>💬 NORVO™️ is analyzing speech clarity, emotional tone and self-presentation alignment.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 7: Question 1 -->
+        <div class="page" id="page7">
+            <h1>Personal strengths & weaknesses (3×2 min)</h1>
+            <p><strong>Question 1:</strong><br>"Tell me about a situation in which you had to make a difficult decision under pressure. What did you do and what was the outcome?"</p>
+            
+            <div class="timer" id="timer2">2:00</div>
+            
+            <div class="webcam-container">
+                <div class="webcam-box">
+                    <div class="face-marker"></div>
+                    <video id="webcam2" class="webcam-video" autoplay playsinline></video>
+                    <div id="webcamError2" class="permission-denied"></div>
+                </div>
+                <div class="webcam-text">
+                    <p>💡 Note: Norvio™️ is monitoring response timing and decision pattern recall.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 8: Question 2 -->
+        <div class="page" id="page8">
+            <h1>Personal strengths & weaknesses (3×2 min)</h1>
+            <p><strong>Question 2:</strong><br>"How do you typically handle negative feedback or criticism?"</p>
+            
+            <div class="timer" id="timer3">2:00</div>
+            
+            <div class="webcam-container">
+                <div class="webcam-box">
+                    <div class="face-marker"></div>
+                    <video id="webcam3" class="webcam-video" autoplay playsinline></video>
+                    <div id="webcamError3" class="permission-denied"></div>
+                </div>
+                <div class="webcam-text">
+                    <p>💡 Note: Sudden pauses or inconsistencies may affect your behavioral alignment score.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 9: Question 3 -->
+        <div class="page" id="page9">
+            <h1>Personal strengths & weaknesses (3×2 min)</h1>
+            <p><strong>Question 3:</strong><br>"What would you say is your greatest weakness – and how are you working on it?"</p>
+            
+            <div class="timer" id="timer4">2:00</div>
+            
+            <div class="webcam-container">
+                <div class="webcam-box">
+                    <div class="face-marker"></div>
+                    <video id="webcam4" class="webcam-video" autoplay playsinline></video>
+                    <div id="webcamError4" class="permission-denied"></div>
+                </div>
+                <div class="webcam-text">
+                    <p>💡 Note: Be aware that NORVO™️ is analyzing confidence, ownership of challenge, and tone modulation.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 10: Summary -->
+        <div class="page" id="page10">
+            <h1>NORVO™️ Screening Summary</h1>
+            <p>Thank you. Your session has been successfully completed.</p>
+            <p>NORVO™ has finished analyzing your responses and will now submit its recommendation to NORVIA's decision system. You can now close this tab and return to the Tivian survey page.</p>
+        </div>
+
+        <div class="ai-analysis" id="aiAnalysis">
+            <h3>REAL-TIME AI ANALYSIS</h3>
+            <p id="aiAnalysisText">Initializing behavioral pattern recognition...</p>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 10;
+        let timers = {};
+        let mediaStream = null;
+        let aiAnalysisInterval;
+        const aiMessages = [
+            "Analyzing speech patterns...",
+            "Processing micro-expressions...",
+            "Evaluating response coherence...",
+            "Calculating confidence metrics...",
+            "Assessing vocal tonality...",
+            "Detecting behavioral patterns...",
+            "Finalizing evaluation matrix..."
+        ];
+    
+        function updateProgressBar() {
+            const progress = (currentPage / totalPages) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+    
+        function updateStatusIndicatorVisibility() {
+    const statusIndicator = document.getElementById('statusIndicator');
+    const aiAnalysis = document.getElementById('aiAnalysis');
+
+    if (currentPage >= 6 && currentPage <= 9) {
+        statusIndicator.style.display = 'flex';
+        aiAnalysis.style.display = 'block';
+    } else {
+        statusIndicator.style.display = 'none';
+        aiAnalysis.style.display = 'none';
+    }
+}
+    
+function showAiAnalysis() {
+    const aiBox = document.getElementById('aiAnalysis');
+    let counter = 0;
+    aiAnalysisInterval = setInterval(() => {
+        document.getElementById('aiAnalysisText').textContent = aiMessages[counter % aiMessages.length];
+        counter++;
+    
+                if (Math.random() > 0.7) {
+                    aiBox.style.boxShadow = `0 0 ${Math.floor(Math.random() * 15) + 5}px rgba(0, 166, 251, ${Math.random() * 0.5 + 0.3})`;
+                }
+            }, 3000);
+        }
+    
+        function nextPage() {
+            document.getElementById(`page${currentPage}`).classList.remove('active-page');
+            currentPage++;
+            document.getElementById(`page${currentPage}`).classList.add('active-page');
+            updateProgressBar();
+            updateStatusIndicatorVisibility();
+    
+            if (currentPage >= 5 && !aiAnalysisInterval) {
+                showAiAnalysis();
+            }
+    
+            if (currentPage === 6) {
+                startTimer('timer1', 180, 7);
+            } else if (currentPage === 7) {
+                startTimer('timer2', 120, 8);
+            } else if (currentPage === 8) {
+                startTimer('timer3', 120, 9);
+            } else if (currentPage === 9) {
+                startTimer('timer4', 120, 10);
+            }
+    
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    
+        async function startWebcamAndContinue() {
+            try {
+                mediaStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: 'user' }, 
+                    audio: true 
+                });
+    
+                for (let i = 1; i <= 4; i++) {
+                    const webcamVideo = document.getElementById(`webcam${i}`);
+                    webcamVideo.srcObject = mediaStream;
+                    document.getElementById(`webcamError${i}`).textContent = '';
+                }
+    
+                nextPage();
+            } catch (error) {
+                console.error('Error accessing media devices:', error);
+                for (let i = 1; i <= 4; i++) {
+                    document.getElementById(`webcamError${i}`).textContent = 
+                        'Camera/microphone access was denied. Please refresh and allow permissions.';
+                }
+            }
+        }
+    
+        function startTimer(timerId, seconds, nextPageNumber) {
+            const timerElement = document.getElementById(timerId);
+            let remaining = seconds;
+    
+            updateTimerDisplay(timerElement, remaining);
+    
+            timers[timerId] = setInterval(() => {
+                remaining--;
+                updateTimerDisplay(timerElement, remaining);
+    
+                if (remaining <= 0) {
+                    clearInterval(timers[timerId]);
+                    document.getElementById(`page${currentPage}`).classList.remove('active-page');
+                    currentPage = nextPageNumber;
+                    document.getElementById(`page${currentPage}`).classList.add('active-page');
+                    updateProgressBar();
+                    updateStatusIndicatorVisibility();
+    
+                    if (currentPage === 7) {
+                        startTimer('timer2', 120, 8);
+                    } else if (currentPage === 8) {
+                        startTimer('timer3', 120, 9);
+                    } else if (currentPage === 9) {
+                        startTimer('timer4', 120, 10);
+                    }
+    
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }, 1000);
+        }
+    
+        function updateTimerDisplay(element, seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            element.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    
+            if (seconds <= 10) {
+                element.style.animation = 'none';
+                void element.offsetWidth;
+                element.style.animation = 'blink 0.5s infinite';
+            }
+        }
+    
+        window.addEventListener('beforeunload', () => {
+            if (mediaStream) {
+                mediaStream.getTracks().forEach(track => track.stop());
+            }
+            if (aiAnalysisInterval) {
+                clearInterval(aiAnalysisInterval);
+            }
+        });
+    
+        // <<< WICHTIG: Direkt beim Laden:
+        updateProgressBar();
+        updateStatusIndicatorVisibility();
+    
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            document.documentElement.style.setProperty('--mouse-x', x);
+            document.documentElement.style.setProperty('--mouse-y', y);
+        });
+    </script>
+    </body>
+    </html>
+    
