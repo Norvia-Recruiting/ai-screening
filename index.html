@@ -474,16 +474,7 @@ ol li::before {
             <button class="btn" onclick="nextPage()">Continue</button>
         </div>
 
-        <!-- Page 3: Collaboration -->
-        <div class="page" id="page3">
-            <h1>Collaboration with the University of Mannheim</h1>
-            <p>This interview is part of a research collaboration between NORVIA and the Chair of Human Resource Management and Leadership at the University of Mannheim (Prof. Dr. Torsten Biemann). The goal of this partnership is to further develop and scientifically evaluate AI-supported selection processes in recruiting.</p>
-            <p>Your participation will help us improve the accuracy, fairness, and user experience of AI-driven screening tools.</p>
-            <p>* <strong>Important:</strong> All data (including video and audio recordings) will not be shared with NORVIA or any external party. It will be analyzed solely by the research team at the University of Mannheim and will be completely deleted after evaluation.</p>
-            <button class="btn" onclick="nextPage()">Continue</button>
-        </div>
-
-        <!-- Page 4: What to Expect -->
+        <!-- Page 3: What to Expect -->
         <div class="page" id="page4">
             <h1>What to Expect</h1>
             <p>You are about to complete your AI-based screening interview with NORVO™️, which consists of the following three parts:</p>
@@ -496,7 +487,7 @@ ol li::before {
             <button class="btn" onclick="nextPage()">Continue</button>
         </div>
 
-        <!-- Page 5: Technical Details -->
+        <!-- Page 4: Technical Details -->
         <div class="page" id="page5">
             <h1>Technical Details</h1>
             <ul>
@@ -508,7 +499,7 @@ ol li::before {
             <button class="btn" onclick="startWebcamAndContinue()">Start Screening</button>
         </div>
 
-        <!-- Page 6: Self Introduction -->
+        <!-- Page 5: Self Introduction -->
         <div class="page" id="page6">
             <h1>Self introduction (3 min)</h1>
             <p>Please introduce yourself to NORVO™️. You may wish to include:</p>
@@ -532,7 +523,7 @@ ol li::before {
             </div>
         </div>
 
-        <!-- Page 7: Question 1 -->
+        <!-- Page 6: Question 1 -->
         <div class="page" id="page7">
             <h1>Personal strengths & weaknesses (3×2 min)</h1>
             <p><strong>Question 1:</strong><br>"Tell me about a situation in which you had to make a difficult decision under pressure. What did you do and what was the outcome?"</p>
@@ -551,7 +542,7 @@ ol li::before {
             </div>
         </div>
 
-        <!-- Page 8: Question 2 -->
+        <!-- Page 7: Question 2 -->
         <div class="page" id="page8">
             <h1>Personal strengths & weaknesses (3×2 min)</h1>
             <p><strong>Question 2:</strong><br>"How do you typically handle negative feedback or criticism?"</p>
@@ -570,7 +561,7 @@ ol li::before {
             </div>
         </div>
 
-        <!-- Page 9: Question 3 -->
+        <!-- Page 8: Question 3 -->
         <div class="page" id="page9">
             <h1>Personal strengths & weaknesses (3×2 min)</h1>
             <p><strong>Question 3:</strong><br>"What would you say is your greatest weakness – and how are you working on it?"</p>
@@ -589,7 +580,7 @@ ol li::before {
             </div>
         </div>
 
-        <!-- Page 10: Summary -->
+        <!-- Page 9: Summary -->
         <div class="page" id="page10">
             <h1>NORVO™️ Screening Summary</h1>
             <p>Thank you. Your session has been successfully completed.</p>
@@ -604,7 +595,7 @@ ol li::before {
 
     <script>
         let currentPage = 1;
-        const totalPages = 10;
+        const totalPages = 9;
         let timers = {};
         let mediaStream = null;
         let aiAnalysisInterval;
@@ -627,7 +618,7 @@ ol li::before {
     const statusIndicator = document.getElementById('statusIndicator');
     const aiAnalysis = document.getElementById('aiAnalysis');
 
-    if (currentPage >= 6 && currentPage <= 9) {
+    if (currentPage >= 5 && currentPage <= 8) {
         statusIndicator.style.display = 'flex';
         aiAnalysis.style.display = 'block';
     } else {
@@ -660,14 +651,14 @@ function showAiAnalysis() {
                 showAiAnalysis();
             }
     
-            if (currentPage === 6) {
-                startTimer('timer1', 180, 7);
+            if (currentPage === 5) {
+                startTimer('timer1', 180, 6);
+            } else if (currentPage === 6) {
+                startTimer('timer2', 120, 7);
             } else if (currentPage === 7) {
-                startTimer('timer2', 120, 8);
+                startTimer('timer3', 120, 8);
             } else if (currentPage === 8) {
-                startTimer('timer3', 120, 9);
-            } else if (currentPage === 9) {
-                startTimer('timer4', 120, 10);
+                startTimer('timer4', 120, 9);
             }
     
             window.scrollTo({
@@ -717,12 +708,12 @@ function showAiAnalysis() {
                     updateProgressBar();
                     updateStatusIndicatorVisibility();
     
-                    if (currentPage === 7) {
-                        startTimer('timer2', 120, 8);
+                    if (currentPage === 6) {
+                        startTimer('timer2', 120, 7);
+                    } else if (currentPage === 7) {
+                        startTimer('timer3', 120, 8);
                     } else if (currentPage === 8) {
-                        startTimer('timer3', 120, 9);
-                    } else if (currentPage === 9) {
-                        startTimer('timer4', 120, 10);
+                        startTimer('timer4', 120, 9);
                     }
     
                     window.scrollTo({ top: 0, behavior: 'smooth' });
