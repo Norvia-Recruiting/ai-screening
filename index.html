@@ -479,11 +479,11 @@ ol li::before {
 
     <ol>
         <li>
-            <strong>Self-introduction (3 minutes)</strong><br>
+            <strong>Self-introduction (2 minutes)</strong><br>
             Please pitch yourself freely and authentically to NORVO™. This is your opportunity to showcase your background, motivation, and personal strengths.
         </li>
         <li>
-            <strong>Spontaneous interview questions (3 × 2 minutes)</strong><br>
+            <strong>Spontaneous interview questions (3 × 1 minute)</strong><br>
             You will then be asked three questions by NORVO™, to screen your personality with all of your strengths and weaknesses. These should be answered spontaneously and honestly.
         </li>
     </ol>
@@ -520,7 +520,7 @@ ol li::before {
 
         <!-- Page 5: Self Introduction -->
         <div class="page" id="page5">
-            <h1>Self introduction (3 min)</h1>
+            <h1>Self introduction (2 min)</h1>
             <p>Please introduce yourself to NORVO™. You may wish to include:</p>
             <ul>
                 <li>Your academic or professional background</li>
@@ -528,7 +528,7 @@ ol li::before {
                 <li>What you bring to the role of Talent Acquisition & AI Integration Recruiter</li>
             </ul>
             
-            <div class="timer" id="timer1">3:00</div>
+            <div class="timer" id="timer1">2:00</div>
             
             <div class="webcam-container">
                 <div class="webcam-box">
@@ -544,10 +544,10 @@ ol li::before {
 
         <!-- Page 6: Question 1 -->
         <div class="page" id="page6">
-            <h1>Personal strengths & weaknesses (3×2 min)</h1>
+            <h1>Personal strengths & weaknesses (3×1 min)</h1>
             <p><strong>Question 1:</strong><br>"Tell me about a situation in which you had to make a difficult decision under pressure. What did you do and what was the outcome?"</p>
             
-            <div class="timer" id="timer2">2:00</div>
+            <div class="timer" id="timer2">1:00</div>
             
             <div class="webcam-container">
                 <div class="webcam-box">
@@ -563,10 +563,10 @@ ol li::before {
 
         <!-- Page 7: Question 2 -->
         <div class="page" id="page7">
-            <h1>Personal strengths & weaknesses (3×2 min)</h1>
+            <h1>Personal strengths & weaknesses (3×1 min)</h1>
             <p><strong>Question 2:</strong><br>"How do you typically handle negative feedback or criticism?"</p>
             
-            <div class="timer" id="timer3">2:00</div>
+            <div class="timer" id="timer3">1:00</div>
             
             <div class="webcam-container">
                 <div class="webcam-box">
@@ -582,10 +582,10 @@ ol li::before {
 
         <!-- Page 8: Question 3 -->
         <div class="page" id="page8">
-            <h1>Personal strengths & weaknesses (3×2 min)</h1>
+            <h1>Personal strengths & weaknesses (3×1 min)</h1>
             <p><strong>Question 3:</strong><br>"What would you say is your greatest weakness – and how are you working on it?"</p>
             
-            <div class="timer" id="timer4">2:00</div>
+            <div class="timer" id="timer4">1:00</div>
             
             <div class="webcam-container">
                 <div class="webcam-box">
@@ -671,13 +671,13 @@ function showAiAnalysis() {
             }
     
             if (currentPage === 5) {
-                startTimer('timer1', 180, 6);
+                startTimer('timer1', 120, 6);
             } else if (currentPage === 6) {
-                startTimer('timer2', 120, 7);
+                startTimer('timer2', 60, 7);
             } else if (currentPage === 7) {
-                startTimer('timer3', 120, 8);
+                startTimer('timer3', 60, 8);
             } else if (currentPage === 8) {
-                startTimer('timer4', 120, 9);
+                startTimer('timer4', 60, 9);
             }
     
             window.scrollTo({
@@ -728,11 +728,11 @@ function showAiAnalysis() {
                     updateStatusIndicatorVisibility();
     
                     if (currentPage === 6) {
-                        startTimer('timer2', 120, 7);
+                        startTimer('timer2', 60, 7);
                     } else if (currentPage === 7) {
-                        startTimer('timer3', 120, 8);
+                        startTimer('timer3', 60, 8);
                     } else if (currentPage === 8) {
-                        startTimer('timer4', 120, 9);
+                        startTimer('timer4', 60, 9);
                     }
     
                     window.scrollTo({ top: 0, behavior: 'smooth' });
